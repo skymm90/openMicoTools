@@ -1,5 +1,5 @@
-SRC = $(wildcard *.cpp)
-OBJ = $(patsubst %.cpp, %.o, $(SRC))
+SRC = $(wildcard *.cc)
+OBJ = $(patsubst %.cc, %.o, $(SRC))
  
 ALL: main
 
