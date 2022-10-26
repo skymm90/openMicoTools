@@ -1,19 +1,10 @@
-#ROOT=$(shell pwd)
-ROOT=.
-CFLAGS=-Wall -g -std=c++11 -lstdc++  `pkg-config --cflags --libs gtk+-3.0`
-CC=gcc
-TARGET=vision
+SRC = $(wildcard *.cpp)
+OBJ = $(patsubst %.cpp, %.o, $(SRC))
+ 
+ALL: main
 
-SRCS=$(shell ls $(ROOT)/*.cc)
+main: $(OBJ)
+	gcc $< -o $@
 
-OBJS = $(SRCS:.cc=.o)
-
-$(TARGET):$(OBJS)
-    $(CC) -o $@ $^ $(CFLAGS)
-
-
-%.o:%.c
-    $(CC) $(CFLAGS) -o $@ -c $<
-
-clean:
-    @rm -rf $(TARGET) $(OBJS)
+$(OBJ): $(SRC)
+	gcc -c $< -o $@ -g -std=c++11  -I /usr/include/x86_64-linux-gnu/ -L  /usr/local/lib/   $(pkg-config --cflags --libs gtk+-3.0)
