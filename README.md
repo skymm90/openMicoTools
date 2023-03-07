@@ -48,10 +48,7 @@ See our [Contributing Guide](CONTRIBUTING.md) for information about contributing
 -------------------------------------
 _Licensed under [Apache Software License 2.0](https://www.apache.org/licenses/LICENSE-2.0)_
 
-  While not perfect, number of comments is a reasonable proxy for impact a given change will have.
+While not perfect, number of comments is a reasonable proxy for impact a given change will have.
 [source: [Atom](https://github.com/airvps/shorturl/blob/master/CONTRIBUTING.md#your-first-code-contribution)] 
- [Read the Docs](http://docs.readthedocs.org/en/latest/contribute.html#contributing-to-development) 
- [2] [Django](https://docs.djangoproject.com/en/dev/internals/contributing/new-contributors/#first-steps) 
- 
- 
+[Read the Docs](http://docs.readthedocs.org/en/latest/contribute.html#contributing-to-development) 
 
