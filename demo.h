@@ -144,6 +144,8 @@ void CBase::PrepareKey()
     if (!finded)
       _key.CalcKey();
     _cachedKeys.Add(_key);
+    bool isinit=false;
+    if(_key!=null) isinit=true;
   }
   if (!finded)
     g_GlobalKeyCache.FindAndAdd(_key);
