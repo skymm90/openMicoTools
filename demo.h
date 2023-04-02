@@ -280,3 +280,49 @@ STDMETHODIMP_(UInt32) CBaseCoder::Filter(Byte *data, UInt32 size)
 }
 
 }}
+
+
+ template <typename Subject, typename Action>
+    struct action : unary_generator<action<Subject, Action> >
+    {
+        typedef Subject subject_type;
+        typedef typename subject_type::properties properties;
+
+        template <typename Context, typename Iterator>
+        struct attribute
+          : traits::attribute_of<Subject, Context, Iterator>
+        {};
+
+        action(Subject const& subject, Action f)
+          : subject(subject), f(f) {}
+
+        template <
+            typename OutputIterator, typename Context, typename Delimiter
+          , typename Attribute>
+        bool generate(OutputIterator& sink, Context& ctx, Delimiter const& d
+          , Attribute const& attr_) const
+        {
+            typedef typename attribute<Context, unused_type>::type attr_type;
+            typedef traits::make_attribute<attr_type, Attribute> make_attribute;
+
+            // create a attribute if none is supplied
+            // this creates a _copy_ of the attribute because the semantic
+            // action will likely change parts of this
+            typename make_attribute::value_type attr = make_attribute::call(attr_);
+
+            // call the function, passing the attribute, the context and a bool
+            // flag that the client can set to false to fail generating.
+            return traits::action_dispatch<Subject>()(f, attr, ctx) &&
+                   subject.generate(sink, ctx, d, attr);
+        }
+
+        template <typename Context>
+        info what(Context& context) const
+        {
+            // the action is transparent (does not add any info)
+            return subject.what(context);
+        }
+
+        subject_type subject;
+        Action f;
+    };
